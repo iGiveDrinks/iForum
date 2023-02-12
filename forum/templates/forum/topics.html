@@ -1,0 +1,27 @@
+{% extends 'forum/base.html' %}
+
+{% block content %}
+<h1 class="mt-5 pb-4">Communities</h1>
+<a href="{% url 'forum:new_topic' %}" class="btn btn-primary mb-4">Create Community</a>
+
+<div class="container text-center">
+  <div class="row row-cols-4 rows-cols-auto gy-4">
+
+    <!-- Topic cards -->
+    {% for topic in topics %}
+    <div class="col">
+      <div class="card" style="width: 18rem;">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <h5 class="card-title">{{ topic }}</h5>
+          <p class="card-text">{{ topic.about }}</p>
+          <a href="{% url 'forum:topic' topic.id %}" class="btn btn-primary">Enter Community</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    <!-- End of topic cards -->
+
+  </div>
+</div>
+{% endblock content %}

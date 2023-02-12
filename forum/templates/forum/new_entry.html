@@ -1,0 +1,13 @@
+{% extends "forum/base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<h1 class="mt-5 pb-4">{{ topic }} - Create post</h1>
+
+<form action="{% url 'forum:new_entry' topic.id %}" method='post'>
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% bootstrap_button button_type="submit" content="Create" %}
+</form>
+
+{% endblock content %}

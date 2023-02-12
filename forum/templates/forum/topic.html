@@ -1,0 +1,17 @@
+{% extends 'forum/base.html' %}
+
+{% block content %}
+<h1 class="mt-5 pb-4">{{ topic.text }}</h1>
+<a href="{% url 'forum:new_entry' topic.id %}" class="btn btn-primary mb-4">Create Post</a>
+{% for entry in entries %}
+  <div class="card mb-4" style="width: 90%;">
+    <!-- <img src="..." class="card-img-top" alt="..."> -->
+    <div class="card-body">
+      <h5 class="card-title">{{ entry.title }}</h5>
+      <p class="card-text">{{ entry.author }} on {{ entry.date_added|date:'d/m/Y' }}
+      {{ entry.text|truncatewords:30|linebreaks }}</p>
+      <a href="{% url 'forum:entry' entry.id %}" class="btn btn-primary">Read More...</a>
+    </div>
+  </div>
+{% endfor %}
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends "forum/base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<h1 class="mt-5 pb-4">Register an account</h1>
+
+<form action="{% url 'users:register' %}" method='post'>
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% bootstrap_button button_type="submit" content="Register" %}
+</form>
+<p class="mt-4">Or if you already have an account, you can <a href="{% url 'users:login' %}">log in</a><p>
+
+{% endblock content %}
