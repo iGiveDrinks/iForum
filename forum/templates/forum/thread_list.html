@@ -1,0 +1,18 @@
+{% extends 'forum/base.html' %}
+
+{% block content %}
+<h1 class="mt-5 pb-4">Forums > {{ forum.title }}</h1>
+<a href="{% url 'forum:thread_create' forum.id %}" class="btn btn-primary mb-4">Post thread</a>
+{% for thread in threads %}
+  <div class="card mb-4" style="width: 90%;">
+    <!-- <img src="..." class="card-img-top" alt="..."> -->
+    <div class="card-body">
+      <h5 class="card-title">{{ thread.title }}</h5>
+      <p class="card-text">{{ thread.author }} on {{ thread.publish|date:'d/m/Y' }}
+      {{ thread.body|linebreaks|truncatewords:30 }}</p>
+      <a href="{{ thread.get_absolute_url }}" class="btn btn-primary">Read....</a>
+    </div>
+  </div>
+{% endfor %}
+  {% include 'forum/includes/pagination.html' with page=threads %}
+{% endblock content %}

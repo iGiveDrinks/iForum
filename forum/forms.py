@@ -1,17 +1,21 @@
 from django import forms
 
-from .models import Topic, Entry
+from .models import Forum, Thread, Comment
 
-class TopicForm(forms.ModelForm):
+class ForumCreateForm(forms.ModelForm):
 	class Meta:
-		model = Topic
-		fields = ['text', 'about',]
-		labels = {'text': 'Community name...',
-				'about': 'Whats your topic about?',}
+		model = Forum
+		fields = ['title', 'body']
+		labels = {'title': 'Forum title', 'body': ''}
 
-class EntryForm(forms.ModelForm):
+class ThreadCreateForm(forms.ModelForm):
 	class Meta:
-		model = Entry
-		fields = ['title', 'text']
-		labels = {'title': 'Title', 'text': 'Type here...',}
-		widgets = {'text': forms.Textarea(attrs={'cols': 80})}
+		model = Thread
+		fields = ['title', 'body']
+		labels = {'title': 'Thread title', 'body': ''}
+
+class CommentForm(forms.ModelForm):
+	class Meta:
+		model = Comment
+		fields = ['body']
+		labels = {'body': 'Write your reply...'}

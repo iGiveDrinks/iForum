@@ -1,1 +1,0 @@
-Dummy forum using Bootstrap5 examples.

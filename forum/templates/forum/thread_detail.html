@@ -1,0 +1,42 @@
+{% extends "forum/base.html" %}
+
+{% block content %}
+<h1 class="mt-5 pb-4">Forum > {{ forum }} > {{ thread }}</h1>
+<a href="{% url 'forum:thread_list' forum.id %}" class="btn btn-primary mb-4"><< Go back</a>
+
+  <!-- Entry Card -->
+  <div class="card mb-4" style="width: 90%;">
+    <!-- <img src="..." class="card-img-top" alt="..."> -->
+    <div class="card-body">
+      <h5 class="card-title mb-0"></h5>
+      <p class="card-text">{{ thread.author }} on {{ thread.publish|date:'d/m/Y' }}<hr>
+      {{ thread.body|linebreaks }}</p>
+      {% if request.user == thread.author %}
+        <a href="{% url 'forum:thread_edit' thread.id %}" class="btn btn-primary">Edit</a>
+      {% endif %}
+      
+    </div>
+  </div>
+  <!-- End of entry card -->
+
+  <!-- Add comment form -->
+  <div class="mb-4" style="width: 90%;">
+  <hr>
+  {% include 'forum/includes/comment_form.html' %}
+  </div>
+  <!-- End of comment form -->
+
+  <!-- Comment cards -->
+  {% for comment in comments %}
+  <div class="card mb-4" style="width: 90%;">
+    <!-- <img src="..." class="card-img-top" alt="..."> -->
+    <div class="card-body">
+      <h5 class="card-title mb-0"></h5>
+      <p class="card-text">#{{ forloop.counter }} - {{ comment.author }} on {{ comment.publish|date:'d/m/Y' }}<hr>
+      {{ comment.body|linebreaks }}</p>
+    </div>
+  </div>
+  {% endfor %}
+  <!-- End of comment cards -->
+  {% include 'forum/includes/pagination.html' with page=comments %}
+{% endblock content %}

@@ -1,0 +1,13 @@
+{% extends "forum/base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<h1 class="mt-5 pb-4">Forum > {{ forum }} > {{ thread }} > Edit</h1>
+
+<form action="{% url 'forum:thread_edit' thread.id %}" method='post'>
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% bootstrap_button button_type="submit" content="Save" %}
+</form>
+
+{% endblock content %}

@@ -1,4 +1,5 @@
 from django.urls import path
+
 from . import views
 
 app_name = 'forum'
@@ -6,15 +7,24 @@ urlpatterns = [
 	# home page
 	path('', views.index, name='index'),
 
-	# topics and listed entries page
-	path('topics/', views.topics, name='topics'),
-	path('topics/<int:id>/', views.topic, name='topic'),
+	path('forums/forum_create/',
+		views.forum_create, name='forum_create'),
 
-	# detailed entry page
-	path('entry/<int:id>/', views.entry_detail, name='entry'),
+	path('forums/forum_edit/<int:id>/',
+		views.forum_edit, name='forum_edit'),
 
-	# page for adding a new topic and enrty
-	path('new_topic/', views.new_topic, name='new_topic'),
-	path('new_entry/<int:id>/', views.new_entry, name='new_entry'),
-	path('edit_entry/<int:id>/', views.edit_entry, name='edit_entry')
+	path('forums/<int:id>/',
+		views.thread_list, name='thread_list'),
+
+	path('thread/<int:year>/<int:month>/<int:day>/<slug:thread>/',
+		views.thread_detail, name='thread_detail'),
+
+	path('thread_comment/<int:id>/',
+		views.thread_comment, name='thread_comment'),
+
+	path('thread_create/<int:id>/',
+		views.thread_create, name='thread_create'),
+
+	path('thread_edit/<int:id>/',
+		views.thread_edit, name='thread_edit'),
 ]
