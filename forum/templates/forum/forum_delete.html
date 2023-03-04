@@ -1,0 +1,14 @@
+{% extends 'forum/base.html' %}
+
+{% block content %}
+	<h1 class="mt-5 pb-4">Forums > Delete {{ forum.title }}</h1>
+	<p>Are you sure you want to delete "{{ forum.title }}"? All threads and
+	other associated objects will be deleted along with it.</p>
+
+	{% load django_bootstrap5 %}
+	<form action="" method='post'>
+	  {% csrf_token %}
+	  {% bootstrap_button button_type="submit" content=" Confirm and delete" %}
+	</form>
+
+{% endblock content %}

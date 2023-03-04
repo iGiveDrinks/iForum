@@ -11,11 +11,16 @@ class ForumCreateForm(forms.ModelForm):
 class ThreadCreateForm(forms.ModelForm):
 	class Meta:
 		model = Thread
-		fields = ['title', 'body']
-		labels = {'title': 'Thread title', 'body': ''}
+		fields = ['title', 'tags', 'body']
+		labels = {'title': 'Thread title',
+				'tags': 'Tags', 
+				'body': ''}
 
 class CommentForm(forms.ModelForm):
 	class Meta:
 		model = Comment
 		fields = ['body']
 		labels = {'body': 'Write your reply...'}
+
+class SearchForm(forms.Form):
+	query = forms.CharField()

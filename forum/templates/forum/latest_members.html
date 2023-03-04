@@ -1,0 +1,9 @@
+{% for member in latest_members %}
+  <div class="card mb-2" style="width: 90%;">
+    <!-- <img src="..." class="card-img-top" alt="..."> -->
+    <div class="card-body">
+      <h6 class="card-title">{{ member.username }}</a></h6>
+      <p class="card-text">Date joined: {{ member.date_joined|date:'d/m/Y' }} - Last login: {{ member.last_login|date:'d/m/Y, H:i' }}</p>
+    </div>
+  </div>
+{% endfor %}

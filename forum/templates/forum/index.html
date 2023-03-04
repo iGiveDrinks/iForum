@@ -1,6 +1,14 @@
 {% extends 'forum/base.html' %}
+{% load forum_tags %}
 
 {% block content %}
+<style>
+  a{
+    color:black;
+    text-decoration:none;
+  }
+</style>
+
 <h1 class="mt-5 pb-4">Forums</h1>
 <a href="{% url 'forum:forum_create' %}" class="btn btn-primary mb-4">Create Forum</a>
 
@@ -18,17 +26,76 @@
           <a href="{% url 'forum:thread_list' forum.id %}" class="btn btn-primary">Read...</a>
           {% if request.user == forum.author %}
             <a href="{% url 'forum:forum_edit' forum.id %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'forum:forum_delete' forum.id %}" class="btn btn-primary">Delete</a>
           {% endif %}
         </div>
       </div> 
     </div>
     {% endfor %}
     <!-- End of topic cards -->
-
   </div>
 </div>
 
-<div class="mt-4">
-  {% include 'forum/includes/pagination.html' with page=forums %}
-</div>
+  <div class="mt-4">
+    {% include 'forum/includes/pagination.html' with page=forums %}
+  </div>
+
+  <!-- Most recents -->
+  <div class="container px-4 py-5">
+    <h2 class="pb-2 border-bottom mb-5"></h2>
+
+    <div class="row g-5">
+      <div class="col-md-6">
+        <h2 class="mb-4">Most recent threads</h2>
+        <p></p>
+        {% show_latest_threads 3 %}
+      </div>
+
+      <div class="col-md-6">
+        <h2 class="mb-4">Latest members</h2>
+        <p></p>
+        {% show_latest_members 3 %}
+      </div>
+    </div>
+  </div>
+  <!-- End of most recents -->
+
+  <!-- Statistic grid -->
+  <div class="container px-4 py-5" id="icon-grid">
+    <h2 class="pb-2 border-bottom"></h2>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+      <div class="col d-flex align-items-start">
+        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#bootstrap"/></svg>
+        <div>
+          <p>Users</p>
+          <h5>{% total_users %}</h5>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#cpu-fill"/></svg>
+        <div>
+          <p>Forums</p>
+          <h5>{% total_forums %}</h5>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#calendar3"/></svg>
+        <div>
+          <p>Threads</p>
+          <h5>{% total_threads %}</h5>
+        </div>
+      </div>
+      <div class="col d-flex align-items-start">
+        <svg class="bi text-muted flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#home"/></svg>
+        <div>
+          <p>Comments</p>
+          <h5>{% total_comments %}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+      <!-- Seperate here -->
+  <!-- End of statistic grid -->
+
 {% endblock content %}

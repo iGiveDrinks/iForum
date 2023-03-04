@@ -1,0 +1,34 @@
+{% extends "forum/base.html" %}	
+{% load forum_tags %}
+
+{% block content %}
+	<h1 class="mt-5 pb-4">Forums > Search</h1>
+	{% if query %}
+	  <h3>Threads containing "{{ query }}"</h3>
+	    <h4>
+	      {% with results.count as total_results %}
+	        Found {{ total_results }} result{{ total_results|pluralize }}
+	      {% endwith %}
+	    </h4>
+		{% for thread in results %}
+		  <div class="card mb-4" style="width: 90%;">
+		    <!-- <img src="..." class="card-img-top" alt="..."> -->
+		    <div class="card-body">
+		      <h5 class="card-title">{{ thread.title }}</h5>
+		      <p class="card-text">{{ thread.author }} on {{ thread.publish|date:'d/m/Y' }}
+		      {{ thread.body|markdown|truncatewords_html:30 }}</p>
+		      <a href="{{ thread.get_absolute_url }}" class="btn btn-primary">Read...</a>
+		    </div>
+		  </div>
+		{% empty %}
+		  <p>No results found.</p>
+		{% endfor %}
+		<P><a href="{% url 'forum:site_search' %}">Search again</a></P>
+	{% else %}
+	  <h3>Search for threads</h3>
+	  <form method="get">
+	  	{{ form.as_p }}
+	  	<input type="submit" value="Search">
+	  </form>
+	{% endif %}
+{% endblock content %}

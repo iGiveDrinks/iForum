@@ -15,9 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.sitemaps.views import sitemap
+
+from forum.sitemaps import ForumSitemap, ThreadSitemap
+
+
+sitemaps = {
+    'forums': ForumSitemap,
+    'threads': ThreadSitemap,
+}
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('', include('forum.urls')),
+
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+            name='django.contrib.sitemaps.views.sitemap')
 ]

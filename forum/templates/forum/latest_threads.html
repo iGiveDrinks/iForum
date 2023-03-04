@@ -1,0 +1,9 @@
+{% for thread in latest_threads %}
+  <div class="card mb-2" style="width: 90%;">
+    <!-- <img src="..." class="card-img-top" alt="..."> -->
+    <div class="card-body">
+      <h6 class="card-title"><a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a></h6>
+      <p class="card-text">{{ thread.author }} on {{ thread.publish|date:'d/m/Y' }}</p>
+    </div>
+  </div>
+{% endfor %}

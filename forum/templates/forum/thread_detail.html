@@ -1,4 +1,5 @@
 {% extends "forum/base.html" %}
+{% load forum_tags %}
 
 {% block content %}
 <h1 class="mt-5 pb-4">Forum > {{ forum }} > {{ thread }}</h1>
@@ -10,9 +11,10 @@
     <div class="card-body">
       <h5 class="card-title mb-0"></h5>
       <p class="card-text">{{ thread.author }} on {{ thread.publish|date:'d/m/Y' }}<hr>
-      {{ thread.body|linebreaks }}</p>
+      {{ thread.body|markdown }}</p>
       {% if request.user == thread.author %}
         <a href="{% url 'forum:thread_edit' thread.id %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'forum:thread_delete' thread.id %}" class="btn btn-primary">Delete</a>
       {% endif %}
       
     </div>
@@ -33,10 +35,34 @@
     <div class="card-body">
       <h5 class="card-title mb-0"></h5>
       <p class="card-text">#{{ forloop.counter }} - {{ comment.author }} on {{ comment.publish|date:'d/m/Y' }}<hr>
-      {{ comment.body|linebreaks }}</p>
+      {{ comment.body|markdown }}</p>
+      {% if request.user == comment.author %}
+        <a href="{% url 'forum:comment_delete' comment.id %}" class="btn btn-primary">Delete</a>
+      {% endif %}
     </div>
   </div>
   {% endfor %}
   <!-- End of comment cards -->
   {% include 'forum/includes/pagination.html' with page=comments %}
+  
+  <div class="mb-4" style="width: 90%;">
+    <hr>
+  </div>
+
+  <!-- Similar thread cards -->
+  <h2>Similar threads</h2>
+  {% for thread in similar_threads %}
+    <div class="card mb-4" style="width: 90%;">
+      <!-- <img src="..." class="card-img-top" alt="..."> -->
+      <div class="card-body">
+        <h5 class="card-title">{{ thread.title }}</h5>
+        <p class="card-text">{{ thread.author }} on {{ thread.publish|date:'d/m/Y' }}
+        {{ thread.body|markdown|truncatewords_html:30 }}</p>
+        <a href="{{ thread.get_absolute_url }}" class="btn btn-primary">Read...</a>
+      </div>
+    </div>
+    {% empty %}
+      <p>There are no similar threads yet!<p>
+  {% endfor %}
+  <!-- End of similar thread cards -->
 {% endblock content %}

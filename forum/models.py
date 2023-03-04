@@ -4,6 +4,8 @@ from django.db import models
 from django.template.defaultfilters import truncatechars
 from django.urls import reverse
 from django.utils import timezone
+from taggit.managers import TaggableManager
+
 
 # Create your models here.
 class PublicManager(models.Manager):
@@ -75,6 +77,8 @@ class Thread(models.Model):
                             default=Status.PUBLISHED)
     pinned = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
+    tags = TaggableManager()
+
 
     objects = models.Manager() # Default manager
     published = PublishedManager()
