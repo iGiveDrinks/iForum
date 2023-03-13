@@ -11,3 +11,4 @@ Basic forum project built while learning Django.
 - Make forums private by default
 - Make threads saved as drafts if not submitted
 - Add user ability to see their drafts and forum visibility
+- Add ability to see online and offline status of other users
