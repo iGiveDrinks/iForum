@@ -1,5 +1,5 @@
 # iForum
-Basic forum project built while learning Django. First project uploaded onto GitHub.
+Basic forum project built while learning Django.
 
 ## Roadmap
 - Style the forum with HTML & CSS
